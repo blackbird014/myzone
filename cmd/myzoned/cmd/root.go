@@ -24,6 +24,9 @@ func NewRootCmd() (*cobra.Command, error) {
 		server.StartCmd(app.NewAppCreator(), app.DefaultNodeHome),
 	)
 
+	// Add our custom send-with-fee command
+	AddSendWithFeeCommand(rootCmd)
+
 	// Add completion command
 	rootCmd.AddCommand(&cobra.Command{
 		Use:   "completion",
