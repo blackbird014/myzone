@@ -2,6 +2,8 @@ package app
 
 import (
 	"io"
+	"os"
+	"path/filepath"
 
 	"cosmossdk.io/log"
 	abci "github.com/cometbft/cometbft/abci/types"
@@ -18,7 +20,16 @@ import (
 const Name = "MyZoneApp"
 
 // DefaultNodeHome default home directories for the application daemon
-var DefaultNodeHome string = ""
+var DefaultNodeHome string
+
+func init() {
+	userHomeDir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
+
+	DefaultNodeHome = filepath.Join(userHomeDir, ".myzone")
+}
 
 var (
 	_ servertypes.Application = (*MyZoneApp)(nil)
